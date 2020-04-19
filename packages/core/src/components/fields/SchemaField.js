@@ -238,9 +238,12 @@ function SchemaFieldRender(props) {
     registry = getDefaultRegistry(),
     wasPropertyKeyModified = false,
   } = props;
+
   const { rootSchema, fields, formContext } = registry;
+
   const FieldTemplate =
     uiSchema["ui:FieldTemplate"] || registry.FieldTemplate || DefaultTemplate;
+
   let idSchema = props.idSchema;
   const schema = retrieveSchema(props.schema, rootSchema, formData);
   idSchema = mergeObjects(
@@ -358,48 +361,50 @@ function SchemaFieldRender(props) {
 
   return (
     <FieldTemplate {...fieldProps}>
-      {field}
+      <div>
+        {field}
 
-      {/*
+        {/*
         If the schema `anyOf` or 'oneOf' can be rendered as a select control, don't
         render the selection and let `StringField` component handle
         rendering
       */}
-      {schema.anyOf && !isSelect(schema) && (
-        <_AnyOfField
-          disabled={disabled}
-          errorSchema={errorSchema}
-          formData={formData}
-          idPrefix={idPrefix}
-          idSchema={idSchema}
-          onBlur={props.onBlur}
-          onChange={props.onChange}
-          onFocus={props.onFocus}
-          options={schema.anyOf}
-          baseType={schema.type}
-          registry={registry}
-          schema={schema}
-          uiSchema={uiSchema}
-        />
-      )}
+        {schema.anyOf && !isSelect(schema) && (
+          <_AnyOfField
+            disabled={disabled}
+            errorSchema={errorSchema}
+            formData={formData}
+            idPrefix={idPrefix}
+            idSchema={idSchema}
+            onBlur={props.onBlur}
+            onChange={props.onChange}
+            onFocus={props.onFocus}
+            options={schema.anyOf}
+            baseType={schema.type}
+            registry={registry}
+            schema={schema}
+            uiSchema={uiSchema}
+          />
+        )}
 
-      {schema.oneOf && !isSelect(schema) && (
-        <_OneOfField
-          disabled={disabled}
-          errorSchema={errorSchema}
-          formData={formData}
-          idPrefix={idPrefix}
-          idSchema={idSchema}
-          onBlur={props.onBlur}
-          onChange={props.onChange}
-          onFocus={props.onFocus}
-          options={schema.oneOf}
-          baseType={schema.type}
-          registry={registry}
-          schema={schema}
-          uiSchema={uiSchema}
-        />
-      )}
+        {schema.oneOf && !isSelect(schema) && (
+          <_OneOfField
+            disabled={disabled}
+            errorSchema={errorSchema}
+            formData={formData}
+            idPrefix={idPrefix}
+            idSchema={idSchema}
+            onBlur={props.onBlur}
+            onChange={props.onChange}
+            onFocus={props.onFocus}
+            options={schema.oneOf}
+            baseType={schema.type}
+            registry={registry}
+            schema={schema}
+            uiSchema={uiSchema}
+          />
+        )}
+      </div>
     </FieldTemplate>
   );
 }
